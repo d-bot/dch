@@ -1,0 +1,2 @@
+# m h  dom mon dow   command
+*/5 * * * * ruby /home/dchoi/projects/dch.io/lib/rrd_scripts/update.rb && ruby /home/dchoi/projects/dch.io/lib/rrd_scripts/graph.rb
