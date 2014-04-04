@@ -16,4 +16,17 @@ module Dch
 	INSTARTLOGIC_HTTPS = "https://instartlogic.com/_media/logos/instartlogic.svg"
 	CDNETWORKS_HTTPS = "https://control.cdnetworks.com/op_media/cdnetworks_standalone/en-us/core/images/logo.png"
 
+	def self.❨╯°□°❩╯︵┻━┻
+		puts "❨╯°□°❩╯︵┻━┻"
+	end
+
+	def self.한글함수_이거뭐개판이네
+		puts "한글"
+		puts "이거 뭐 개판이네 아주 그냥"
+	end
+
+	한글함수_이거뭐개판이네
+
+	❨╯°□°❩╯︵┻━┻
+
 end
