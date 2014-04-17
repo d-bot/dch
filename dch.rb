@@ -1,5 +1,6 @@
 require 'rubygems' if RUBY_VERSION < "1.9"
 require 'sinatra'
+require 'redcarpet'
 
 use Rack::Auth::Basic, "Restricted Area" do |username, password|
   username == 'dylan' and password == 'test'
@@ -13,6 +14,11 @@ helpers do
   def username
     session[:identity] ? session[:identity] : 'Hello stranger'
   end
+
+	def m_down(file)
+		redcarpet = Redcarpet::Markdown.new(Redcarpet::Render::HTML, :fenced_code_blocks => true, :disable_indented_code_blocks => true)
+		markdown = redcarpet.render(File.read(file))
+	end
 end
 
 =begin
@@ -62,6 +68,12 @@ end
 get '/test' do
   erb :test
 end
+
+get '/code' do
+	@converted = m_down('views/md_test.md')
+	erb :code
+end
+
 =begin
 get '/login/form' do 
   erb :login_form

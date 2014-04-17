@@ -6,7 +6,7 @@ log = Logger.new('/home/dchoi/projects/dch.io/logs/graph.log')
 rrd_img_dir = "/home/dchoi/projects/dch.io/public/vendor/imgs/rrd/"
 rrd_dir = "/home/dchoi/projects/dch.io/public/vendor/rrd/"
 
-period = %w/ 1year 1month 1week 1day 12hour 6hour /
+period = %w/ 1year 1month 1week 1day 12hour /
 graph_size = "-w 600 -h 230"
 
 # plus operation ------> #CDEF:total=fastly,edgecast,cdnetworks,+,+ \
@@ -29,7 +29,7 @@ period.each do |period|
   defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:"
 
   `rrdtool graph #{rrd_img_dir}#{rrd_img_file}-#{period}.png #{defaultopts} \
-  --title "CDN RTT (ms)" \
+  --title "CDN RTT (#{period})" \
   DEF:akamai=#{rrd_dir}#{rrd_file}:akamai:AVERAGE \
   DEF:limelight=#{rrd_dir}#{rrd_file}:limelight:AVERAGE \
   DEF:edgecast=#{rrd_dir}#{rrd_file}:edgecast:AVERAGE \
@@ -63,7 +63,7 @@ period.each do |period|
 		title = tmp[0].capitalize + " " + tmp[1].capitalize
 		rrd = rrd_file.gsub('.rrd', '')
 		`rrdtool graph #{rrd_img_dir}#{rrd}-#{period}.png #{defaultopts} \
-		--title "#{title} (ms)" \
+		--title "#{title} (#{period})" \
 		DEF:akamai=#{rrd_dir}#{rrd_file}:akamai:AVERAGE \
 		DEF:limelight=#{rrd_dir}#{rrd_file}:limelight:AVERAGE \
 		DEF:edgecast=#{rrd_dir}#{rrd_file}:edgecast:AVERAGE \
