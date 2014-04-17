@@ -78,4 +78,17 @@ class BlockBasedArchivalDocument
 
 end
 
+
+file_doc = BlockBasedArchivalDocument.new(‘file’, ‘russ’) do
+     File.read(‘some_text_file.txt’)
+end
+
+google_doc = BlockBasedArchivalDocument.new(‘http’, ‘russ’) do
+     Net::HTTP.get_response(‘www.google.com’, ‘/index.html’).body
+end
+
+boring_doc = BlockBasedArchivalDocument.new(‘http’, ‘russ’) do
+     “asdfa df ad fadsf” * 100
+end
+
 ```
