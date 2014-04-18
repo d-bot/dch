@@ -69,7 +69,7 @@ test_obj = Hash[
 
 def cmd(url)
 	fqdn = url.split('/')[2]
-	curl = %Q{ curl -I -s -o /dev/null -H "Host: #{fqdn}" -H "Accept-Encoding: gzip, deflate" -H "Pragma: no-cache" -H "Cache-Control: no-cache" -H "User-Agent:Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2)" -w "DNSLookup: %{time_namelookup} Handshake: %{time_connect} TLSHandshake: %{time_appconnect} TTFB: %{time_starttransfer} Total: %{time_total}" #{url} | cut -d ' ' -f2,4,6,8,10 }
+	curl = %Q{ curl -I -s -o /dev/null -H "Host: #{fqdn}" -H "Accept-Encoding: gzip, deflate" -H "Pragma: no-cache" -H "Cache-Control: no-cache" -H "User-Agent: Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_2) AppleWebKit/537.75.14 (KHTML, like Gecko) Version/7.0.3 Safari/537.75.14" -w "DNSLookup: %{time_namelookup} Handshake: %{time_connect} TLSHandshake: %{time_appconnect} TTFB: %{time_starttransfer} Total: %{time_total}" #{url} | cut -d ' ' -f2,4,6,8,10 }
 end
 
 akamai,limelight,edgecast,fastly,cloudflare,instartlogic,cdnetworks = [], [], [], [], [], [], [], []
