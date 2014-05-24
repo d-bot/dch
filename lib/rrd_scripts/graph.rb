@@ -26,9 +26,16 @@ rrd_file = "rtt.rrd"
 rrd_img_file = "rtt"
 
 period.each do |period|
-  defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:"
+  defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:Courier --border 1"
+	# CANVAS = graph(grid) background
+	# BACK = image background
 
-  `rrdtool graph #{rrd_img_dir}#{rrd_img_file}-#{period}.png #{defaultopts} \
+  #colors = "--color CANVAS#000000 --color BACK#000000 --color FONT#FFFFFF"
+  colors = "--color CANVAS#FFFFFF --color BACK#FFFF"
+  #colors = "--color CANVAS#FFFFFF --color BACK#FFFFFF"
+  #colors = ""
+
+  `rrdtool graph #{rrd_img_dir}#{rrd_img_file}-#{period}.png #{defaultopts} #{colors} \
   --title "CDN RTT (#{period})" \
   DEF:akamai=#{rrd_dir}#{rrd_file}:akamai:AVERAGE \
   DEF:limelight=#{rrd_dir}#{rrd_file}:limelight:AVERAGE \
@@ -56,13 +63,14 @@ end
 rrd_files = %w/ dns_lookup.rrd tcp_handshake.rrd tls_handshake.rrd first_byte.rrd /
 
 period.each do |period|
-	defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:"
+	defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:Calibri --border 0"
+  colors = "--color CANVAS#000000 --color BACK#000000 --color FONT#FFFFFF"
 
 	rrd_files.each do |rrd_file|
 		tmp = rrd_file.gsub('.rrd', '').gsub('_', ' ').split
 		title = tmp[0].capitalize + " " + tmp[1].capitalize
 		rrd = rrd_file.gsub('.rrd', '')
-		`rrdtool graph #{rrd_img_dir}#{rrd}-#{period}.png #{defaultopts} \
+		`rrdtool graph #{rrd_img_dir}#{rrd}-#{period}.png #{defaultopts} #{colors} \
 		--title "#{title} (#{period})" \
 		DEF:akamai=#{rrd_dir}#{rrd_file}:akamai:AVERAGE \
 		DEF:limelight=#{rrd_dir}#{rrd_file}:limelight:AVERAGE \
@@ -103,10 +111,11 @@ rtt_rrd = "rtt.rrd"
 tcp_handshake_rrd = "tcp_handshake.rrd"
 
 period.each do |period|
-  defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:"
+  defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:calibri --border 0"
+  colors = "--color CANVAS#000000 --color BACK#000000 --color FONT#FFFFFF"
   %w/ akamai limelight edgecast fastly cloudflare instartlogic cdnetworks /.each do |cdn|
     rrd_file = cdn + "_handshake_vs_rtt"
-    `rrdtool graph #{rrd_img_dir}#{rrd_file}-#{period}.png #{defaultopts} \
+    `rrdtool graph #{rrd_img_dir}#{rrd_file}-#{period}.png #{defaultopts} #{colors} \
     --title "#{cdn.capitalize} (#{period})" \
     DEF:#{cdn}_tcp=#{rrd_dir}#{tcp_handshake_rrd}:#{cdn}:AVERAGE \
     DEF:#{cdn}_rtt=#{rrd_dir}#{rtt_rrd}:#{cdn}:AVERAGE \
@@ -130,9 +139,10 @@ end
 graph_size = "-w 600 -h 230"
 
 period.each do |period|
-  defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:"
+  defaultopts = "--end now --start end-#{period} --lower-limit 0 --lazy --slope-mode #{graph_size} --font TITLE:8:calibri --border 0"
+  colors = "--color CANVAS#000000 --color BACK#000000 --color FONT#FFFFFF"
   %w/ akamai limelight edgecast fastly cloudflare instartlogic cdnetworks /.each do |cdn|
-    `rrdtool graph #{rrd_img_dir}#{cdn}-breakdown-#{period}.png #{defaultopts} \
+    `rrdtool graph #{rrd_img_dir}#{cdn}-breakdown-#{period}.png #{defaultopts} #{colors} \
     --title "#{cdn.capitalize} (#{period})" \
     DEF:#{cdn}_dns=#{rrd_dir}dns_lookup.rrd:#{cdn}:AVERAGE \
     DEF:#{cdn}_tcp=#{rrd_dir}tcp_handshake.rrd:#{cdn}:AVERAGE \
