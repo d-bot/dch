@@ -1,2 +1,4 @@
 require './dch'
-run Sinatra::Application
+
+run Dch.new
+#run Sinatra::Application
