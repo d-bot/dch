@@ -6,7 +6,7 @@ log = Logger.new('/home/dchoi/projects/dch.io/logs/graph.log')
 rrd_img_dir = "/home/dchoi/projects/dch.io/public/vendor/imgs/rrd/"
 rrd_dir = "/home/dchoi/projects/dch.io/public/vendor/rrd/"
 
-period = %w/ 1year 1month 1week 1day 12hour /
+period = %w/ 1year 3month 6month 1month 1week 1day 12hour /
 graph_size = "-w 600 -h 230"
 
 # plus operation ------> #CDEF:total=fastly,edgecast,cdnetworks,+,+ \
